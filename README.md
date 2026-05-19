@@ -190,6 +190,8 @@ figma-code-connect-starter/
 
 **"Cannot find module 'figma'"** - run `npm install` first.
 
+**"Cannot find module 'figma'"in your editor** - this appears before you have run `npm install` and is nothing to worry about. Run `npm install` from the root of your project and the error will disappear.
+
 **"Unauthorised"** - your access token is wrong or has expired. Generate a new one in Figma Settings and update your `.env`.
 
 **"File not found"** - double-check your file key in `figma.config.json`. Make sure you have copied just the key (the random string), not the full URL.
