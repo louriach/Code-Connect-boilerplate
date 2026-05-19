@@ -1,0 +1,13 @@
+{
+  "name": "figma-code-connect-starter",
+  "version": "1.0.0",
+  "description": "Starter kit for connecting Figma components to your codebase using Code Connect",
+  "scripts": {
+    "publish": "figma connect publish",
+    "unpublish": "figma connect unpublish",
+    "help": "figma connect --help"
+  },
+  "dependencies": {
+    "@figma/code-connect": "latest"
+  }
+}
