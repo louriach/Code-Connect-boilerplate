@@ -6,6 +6,27 @@ This kit gets you from zero to your first connected component with as little fri
 
 ---
 
+## How to use this kit
+
+There are two ways to use it depending on your situation.
+
+**If you want to use this as a standalone project:**
+clone or download this repository and work inside it directly. Follow all steps below.
+
+**If you want to add Code Connect to an existing codebase:**
+copy the following files into the root of your existing project:
+
+```
+figma.config.json
+.env.example
+components/Button.figma.ts
+components/_template.figma.ts
+```
+
+Then add `.env` and `node_modules/` to your existing `.gitignore` if they are not there already, and continue from Step 2 below.
+
+---
+
 ## What you will need before starting
 
 - A **Figma account** on an Organisation or Enterprise plan (Code Connect requires Dev Mode)
@@ -27,51 +48,18 @@ https://www.figma.com/design/aBcDeFgHiJkLmNoP/My-Design-System
                             This is your file key
 ```
 
-Copy that value. You will need it in Step 3.
+Copy that value. You will need it in the next step.
 
 ---
 
-## Step 2 - Generate a Figma Access Token
+## Step 2 - Configure your project
 
-This is a password that lets the CLI talk to your Figma account.
-
-1. In Figma, click your profile picture (top left) and go to **Settings**
-2. Scroll to **Personal access tokens** and click **Generate new token**
-3. Give it a name like `code-connect`
-4. Set the following scopes:
-   - **Code Connect** - Write
-   - **File content** - Read
-5. Click **Generate** and copy the token immediately. You will not be able to see it again.
-
----
-
-## Step 3 - Set up your credentials
-
-In the root of this project, duplicate the `.env.example` file and rename the copy to `.env`:
-
-```
-cp .env.example .env
-```
-
-Open `.env` and fill in your values:
-
-```
-FIGMA_ACCESS_TOKEN=your-token-from-step-2
-FIGMA_FILE_KEY=your-file-key-from-step-1
-```
-
-Note: the `.env` file is already listed in `.gitignore`. Never commit it, as it contains your personal access token.
-
----
-
-## Step 4 - Configure your project
-
-Open `figma.config.json`. It looks like this:
+Open `figma.config.json` and replace `REPLACE_WITH_YOUR_FILE_KEY` with the file key you just copied:
 
 ```json
 {
   "codeConnect": {
-    "figmaFileKey": "REPLACE_WITH_YOUR_FILE_KEY",
+    "figmaFileKey": "aBcDeFgHiJkLmNoP",
     "include": ["**/*.figma.ts"],
     "label": "React",
     "language": "jsx"
@@ -79,26 +67,62 @@ Open `figma.config.json`. It looks like this:
 }
 ```
 
-Here is what each field means:
+Also update `label` and `language` to match your codebase if needed:
 
-- **figmaFileKey** - paste your file key from Step 1 here, replacing `REPLACE_WITH_YOUR_FILE_KEY`
-- **include** - tells the CLI which files to look at when publishing. The default picks up any file ending in `.figma.ts` anywhere in the project. You do not need to change this.
-- **label** - the heading shown above your code snippet in Figma's Inspect panel. Change this to match your stack, for example `Vue`, `Swift`, or `Angular`.
-- **language** - controls syntax highlighting in Figma. Common values are `jsx`, `tsx`, `vue`, `swift`, `kotlin`, and `html`. Change it to match your codebase.
+- **label** - the heading shown above your code snippet in Figma's Inspect panel. For example `Vue`, `Swift`, or `Angular`.
+- **language** - controls syntax highlighting in Figma. Common values are `jsx`, `tsx`, `vue`, `swift`, `kotlin`, and `html`.
+
+This file is safe to commit. The file key is configuration, not a secret.
 
 ---
 
-## Step 5 - Install the Code Connect CLI
+## Step 3 - Set up your access token
 
-Run this once in your terminal from the root of this project:
+Your access token is a password that lets the CLI talk to your Figma account. Unlike the file key, this is a secret and should never be committed.
+
+First, generate a token in Figma:
+
+1. Click your profile picture (top left) and go to **Settings**
+2. Scroll to **Personal access tokens** and click **Generate new token**
+3. Give it a name like `code-connect`
+4. Set the following scopes:
+   - **Code Connect** - Write
+   - **File content** - Read
+5. Click **Generate** and copy the token immediately. You will not be able to see it again.
+
+Then, add it to your project:
+
+```
+cp .env.example .env
+```
+
+Open `.env` and paste your token:
+
+```
+FIGMA_ACCESS_TOKEN=your-token-here
+```
+
+The `.env` file is listed in `.gitignore` and will not be committed.
+
+---
+
+## Step 4 - Install the Code Connect CLI
+
+Run this once in your terminal from the root of your project:
 
 ```
 npm install
 ```
 
+If you are adding Code Connect to an existing project that already has a `package.json`, run this instead:
+
+```
+npm install @figma/code-connect
+```
+
 ---
 
-## Step 6 - Connect your first component
+## Step 5 - Connect your first component
 
 Open `components/Button.figma.ts` and read through it. Every line is commented and it is a fully working example for a Button component.
 
@@ -112,7 +136,7 @@ To connect your own component:
 
 ---
 
-## Step 7 - Publish to Figma
+## Step 6 - Publish to Figma
 
 Once your file is ready, run:
 
@@ -151,9 +175,9 @@ npx figma connect unpublish --node=YOUR_COMPONENT_URL
 ```
 figma-code-connect-starter/
 ├── README.md                  You are here
-├── figma.config.json          Project config (language, label, file key)
-├── .env.example               Template for your credentials
-├── .env                       Your actual credentials (not committed)
+├── figma.config.json          Project config (label, language, file key)
+├── .env.example               Template for your access token
+├── .env                       Your actual token (not committed)
 ├── package.json
 └── components/
     ├── Button.figma.ts        A fully worked example, read this first
