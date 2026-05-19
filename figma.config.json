@@ -1,7 +1,9 @@
 {
   "codeConnect": {
-    "figmaFileKey": "REPLACE_WITH_YOUR_FILE_KEY",
+    "figmaFileKey": "YOUR_FILE_KEY",
     "include": ["**/*.figma.ts"],
+    "exclude": ["**/_template.figma.ts"],
+    "parser": "react",
     "label": "React",
     "language": "jsx"
   }
