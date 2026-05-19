@@ -192,6 +192,8 @@ figma-code-connect-starter/
 
 **"Cannot find module 'figma'"in your editor** - this appears before you have run `npm install` and is nothing to worry about. Run `npm install` from the root of your project and the error will disappear.
 
+**`import figma from 'figma'` is underlined in red in your editor** - this is a cosmetic warning and can be ignored. The `figma` import is handled by the CLI at publish time rather than by your project's dependencies, so your editor does not recognise it. If your publish runs successfully, everything i
+
 **"Unauthorised"** - your access token is wrong or has expired. Generate a new one in Figma Settings and update your `.env`.
 
 **"File not found"** - double-check your file key in `figma.config.json`. Make sure you have copied just the key (the random string), not the full URL.
